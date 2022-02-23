@@ -50,11 +50,6 @@ class Bacon:
             ssid = None
         return ssid, id_list
 
-    def parse_pcap(self, pcap):
-        for packet in pcap:
-            self.parse_packets(packet)
-
-
     def parse_packets(self, packet):
         """
         Parse rdpcap packet for beacon frames
@@ -126,11 +121,9 @@ class Bacon:
         self.log.info("Loading Dictionary")
         self.load_dictionary()
         if self.file and not self.interface:
-            pcap = rdpcap(self.file)
-            self.parse_pcap(pcap)
+            sniff(offline=self.file, prn=self.parse_packets)
         elif self.interface and not self.file:
             self.sniff_traffic()
         else:
             return 0
         return None
-
