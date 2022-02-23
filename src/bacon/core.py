@@ -1,6 +1,6 @@
 import datetime
 import json
-from scapy.all import rdpcap, sniff, wrpcap
+from scapy.all import  sniff, wrpcap
 
 class Bacon:
 
